@@ -18,7 +18,7 @@ node ("$ENV") {
 
    
        stage ('Fetch GIT code'){
-       dir($mainDir) {
+       dir('$mainDir') {
          git 'https://github.com/ehteshamkhaja/ec2-terraform-ansible.git'
        }// dir
    }// stage 

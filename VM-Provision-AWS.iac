@@ -65,11 +65,8 @@ node ("$ENV") {
         }//catch 
     
      }//stage
-/*
-      stage("Push the State file to GIT"){
-       commitCode("$branch", "./$mainDir", "ec2-infra-aws/$statefile", "Latest state file committed")
-     } //stage
-  */   
+    
+    
     stage("Pause for 2 minutes for server to be ready"){
         
             sh 'sleep 120'
@@ -91,18 +88,3 @@ node ("$ENV") {
     
 }//node
  
-def commitCode(targetBranch, localBranchPath, fileName, commitMsg) {
-   withCredentials([gitUsernamePassword(credentialsId: 'git-login', gitToolName: 'Default')]) {
-    sh """
-
-        cd $localBranchPath
-        pwd      
-        git add $fileName
-        git diff --staged --quiet || git commit -m  '$commitMsg'
-        echo ${targetBranch}
-        git remote set-url origin ${GITURL}
-        git config --global user.name "DevOps"
-        git push -u origin master
-    """
-   }
-}

@@ -67,7 +67,7 @@ node ("$ENV") {
      }//stage
     
     
-  if ($action == 'apply' || $action == 'destroy' ){
+  if (action == 'apply' ){
     stage("Pause for 2 minutes for server to be ready"){
         
             sh 'sleep 120'
@@ -86,7 +86,7 @@ node ("$ENV") {
         }//catch 
      }
    } 
-
+}
     
 }//node
  

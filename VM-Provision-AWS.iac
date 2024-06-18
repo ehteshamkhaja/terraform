@@ -67,12 +67,14 @@ node ("$ENV") {
      }//stage
     
     
+  if ($action == 'apply' || $action == 'destroy' ){
     stage("Pause for 2 minutes for server to be ready"){
         
             sh 'sleep 120'
         
     }
-     stage("Executing ansible playbook to install Apache Server"){
+  
+   stage("Executing ansible playbook to install Apache Server"){
         try{
             
             ansiblePlaybook disableHostKeyChecking: false, installation: 'ansible', inventory: 'cloud/playbooks/inventory.ini', playbook: 'cloud/playbooks/apache.yaml', vaultTmpPath: '' 
@@ -83,7 +85,7 @@ node ("$ENV") {
             error('Aborting the pipeline' + exc)
         }//catch 
      }
-    
+   } 
 
     
 }//node

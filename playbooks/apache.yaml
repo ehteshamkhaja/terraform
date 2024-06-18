@@ -8,6 +8,7 @@
       apt:
         name: apache2
         state: present
+        update_cache: yes
        
     - name: Modifying the contents of index.html page
       copy:

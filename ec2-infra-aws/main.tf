@@ -1,6 +1,11 @@
 terraform {
   required_version = ">= 0.13.1"
 
+  backend "s3"{
+  bucket  = "my-ec2-terraform"
+  key = "terraform.tfstate"
+  region = "us-east-1"
+} 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -20,7 +25,7 @@ terraform {
 provider "aws" {
   # Configuration options
    region                   = var.region
-  shared_credentials_files = ["/var/lib/jenkins/.aws/credentials"]
+  shared_credentials_files = ["/root/.aws/credentials"]
 }
 
 resource "random_id" "server" {
@@ -30,7 +35,7 @@ resource "random_id" "server" {
 variable "sg_ports" {
   type        = list(number)
   description = "list of ingress ports"
-  default     = [80,22]
+  default     = [80,22,8080]
 }
 
 resource "aws_security_group" "dynamicsg" {

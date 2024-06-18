@@ -83,10 +83,14 @@ node ("$ENV") {
          catch (exc) {
             print "Ansible playbook execution failed"
             error('Aborting the pipeline' + exc)
-        }//catch 
+                    }//catch 
      }
+  
+ 
    } 
-}
+
     
 }//node
- 
+
+
+

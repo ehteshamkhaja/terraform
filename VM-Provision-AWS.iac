@@ -18,7 +18,7 @@ node ("$ENV") {
 
    
        stage ('Fetch GIT code'){
-       dir (mainDir){
+       dir (cloud){
          git poll: true, branch: "$branch", url: "https://github.com/ehteshamkhaja/ec2-instance-creation-using-terraform.git"
        }// dir
    }// stage 
@@ -28,8 +28,8 @@ node ("$ENV") {
         try {
         withAWS(credentials: 'AWS-Credentials') {    
          sh """
-             cd ./cloud/ec2-infra-aws
-             echo 'Running Terraform init'
+            cd ./cloud/ec2-infra-aws
+            echo 'Running Terraform init'
              terraform init
              echo 'Next, Terraform Plan would be executed' 
              
@@ -90,7 +90,7 @@ node ("$ENV") {
 
     
 }//node
-
+ 
 def commitCode(targetBranch, localBranchPath, fileName, commitMsg) {
    withCredentials([gitUsernamePassword(credentialsId: 'git-login', gitToolName: 'Default')]) {
     sh """
